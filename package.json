@@ -1,0 +1,19 @@
+{
+  "name": "pob-commit",
+  "version": "0.1.3",
+  "description": "commit with ease",
+  "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
+  "license": "ISC",
+  "repository": "christophehurpeau/pob-commit",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "./commit"
+  },
+  "bin": {
+    "commit": "./commit"
+  },
+  "dependencies": {
+    "inquirer": "^1.1.2",
+    "minimist-argv": "^1.0.0"
+  }
+}
