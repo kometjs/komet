@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "inquirer": "^1.1.2",
+    "liftoff": "^2.3.0",
     "minimist-argv": "^1.0.0"
   }
 }

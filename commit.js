@@ -1,6 +1,7 @@
 const { readFileSync, writeFileSync, unlinkSync } = require('fs');
 const { execSync, spawnSync } = require('child_process');
 const inquirer = require('inquirer');
+const Liftoff = require('liftoff');
 const argv = require('minimist-argv');
 
 ['p', 'C', 'c', 'm', 't'].forEach(argKey => {
@@ -26,97 +27,68 @@ const argv = require('minimist-argv');
   }
 });
 
-return inquirer.prompt([
-    {
-        type: 'list',
-        name: 'type',
-        message: 'type:',
-        choices: [
-          { name: 'feat: new feature for the user, not a new feature for build script', value: 'feat', short: 'feat' },
-          { name: 'fix: bug fix for the user, not a fix to a build script', value: 'fix', short: 'fix' },
-          { name: 'docs: changes to the documentation', value: 'docs', short: 'docs' },
-          { name: 'style: formatting, missing semi colons, etc; no production code change', value: 'style', short: 'style' },
-          { name: 'refactor: refactoring production code, eg. renaming a variable', value: 'refactor', short: 'refactor' },
-          { name: 'test: adding missing tests, refactoring tests; no production code change', value: 'test', short: 'test' },
-          { name: 'chore: updating tasks, dependencies etc; no production code change', value: 'chore', short: 'chore' },
-        ],
+const Commit = new Liftoff({
+  name: 'commit',
+  configName: '.commitrc.js',
+  extensions: {},
+  configFiles: {
+    '.commitrc.js': {
+      cwd: '.',
+      home: { path: '~' },
     },
-    {
-        name: 'scope',
-        message: 'scope:',
-        default: '',
-        filter: scope => scope.toLowerCase(),
-    },
-    {
-        name: 'subject',
-        message: 'subject:',
-        default: '',
-        filter: subject => subject.toLowerCase(),
-    },
-    {
-        name: 'issue',
-        message: 'What issue this commit solves? (issue ID)',
-        default: 0,
-        validate: issue => Number.isInteger(parseInt(issue)),
-    },
-    {
-        name: 'why',
-        message: 'Why is this change necessary?',
-        default: '',
-    },
-    {
-        name: 'how',
-        message: 'How this change address the issue?',
-        default: '',
-    },
-    {
-        type: 'checkbox',
-        name: 'apps',
-        message: 'What apps your change concerns?',
-        default: [],
-        choices: [
-          { name: 'www', value: 'www', short: 'www' },
-          { name: 'www-pyrite', value: 'www-pyrite', short: 'www-pyrite' },
-          { name: 'api', value: 'api', short: 'api' },
-          { name: 'pro', value: 'pro', short: 'pro' },
-          { name: 'visa', value: 'visa', short: 'visa' },
-          { name: 'tipi', value: 'tipi', short: 'tipi' },
-          { name: 'tipi', value: 'tipi', short: 'tipi' },
-        ],
-        filter: apps => apps.map(app => `#${app}`),
-        validate: apps => apps.length > 0,
+  },
+});
+
+Commit.launch({
+  cwd: argv.cwd,
+  configPath: argv.commitrc
+}, run);
+
+function run (env) {
+  let configPath = env.configFiles['.commitrc.js'].cwd;
+
+  if (!configPath) {
+    console.log('No local config found.');
+
+    if (env.configFiles['.commitrc.js'].home === null) {
+      console.log('No global config found.');
+      
+      execSync('cp .commitrc.tpl ~/.commitrc.js');
+      execSync('cp ~/.commitrc.js .commitrc.js', { stdio: 'inherit'});
+      
+      console.log('Create global and local config...');
+      console.log('Your configurations are ready. run `commit` to commit');
+      return;
     }
-]).then(({ type, scope, subject, issue, why, how, apps }) => {
-  const issueID = issue == 0 ? '' : `issue [#${issue}]\n\n`;
-  const whyParsed = why == '' ? '' : `${why}\n\n`;
-  const howParsed = how == '' ? '' : `${how}\n\n`;
-  const appsParsed = `apps: ${apps.join(' ')}`;
 
-  const firstLine = `${type}${scope ? `(${scope})` : ''}: ${subject}`;
-
-  if (firstLine.length > 70) {
-    console.log(`First line too long, expecting less than 70 chars, got ${firstLine.length}`);
-    process.exit(1);
+    console.log('Using global config.');
+    configPath = env.configFiles['.commitrc.js'].home;
+  } else {
+    console.log('Use local config.');
   }
 
-  const fileContent = [firstLine, '\n\n', issueID, whyParsed, howParsed, appsParsed].join('');
-  writeFileSync('#temp_commit', fileContent);
+  const configFile = require(configPath);
+  return inquirer.prompt(configFile.questions)
+    .then(configFile.processAnswers)
+    .then((fileContent) => {
+      writeFileSync('#temp_commit', fileContent);
 
-  process.nextTick(() => {
-    execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
+      process.nextTick(() => {
+        execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
 
-    const commitMsg = readFileSync('#temp_commit');
-    unlinkSync('#temp_commit');
+        const commitMsg = readFileSync('#temp_commit');
+        unlinkSync('#temp_commit');
 
-    if (!commitMsg) {
-      console.log('Aborting, empty commit message.');
-      process.exit(1);
-    }
+        if (!commitMsg) {
+          console.log('Aborting, empty commit message.');
+          process.exit(1);
+        }
 
-    spawnSync(
-      'git',
-      ['commit'].concat(process.argv.slice(2)).concat('-m'+ commitMsg),
-      { stdio: 'inherit' }
-    );
+        spawnSync(
+          'git',
+          ['commit'].concat(process.argv.slice(2)).concat('-m'+ commitMsg),
+          { stdio: 'inherit' }
+        );
+      });
   });
-});
+}
