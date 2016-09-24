@@ -52,8 +52,46 @@ return inquirer.prompt([
         message: 'subject:',
         default: '',
         filter: subject => subject.toLowerCase(),
+    },
+    {
+        name: 'issue',
+        message: 'What issue this commit solves? (issue ID)',
+        default: 0,
+        validate: issue => Number.isInteger(parseInt(issue)),
+    },
+    {
+        name: 'why',
+        message: 'Why is this change necessary?',
+        default: '',
+    },
+    {
+        name: 'how',
+        message: 'How this change address the issue?',
+        default: '',
+    },
+    {
+        type: 'checkbox',
+        name: 'apps',
+        message: 'What apps your change concerns?',
+        default: [],
+        choices: [
+          { name: 'www', value: 'www', short: 'www' },
+          { name: 'www-pyrite', value: 'www-pyrite', short: 'www-pyrite' },
+          { name: 'api', value: 'api', short: 'api' },
+          { name: 'pro', value: 'pro', short: 'pro' },
+          { name: 'visa', value: 'visa', short: 'visa' },
+          { name: 'tipi', value: 'tipi', short: 'tipi' },
+          { name: 'tipi', value: 'tipi', short: 'tipi' },
+        ],
+        filter: apps => apps.map(app => `#${app}`),
+        validate: apps => apps.length > 0,
     }
-]).then(({ type, scope, subject }) => {
+]).then(({ type, scope, subject, issue, why, how, apps }) => {
+  const issueID = issue == 0 ? '' : `issue [#${issue}]\n\n`;
+  const whyParsed = why == '' ? '' : `${why}\n\n`;
+  const howParsed = how == '' ? '' : `${how}\n\n`;
+  const appsParsed = `apps: ${apps.join(' ')}`;
+
   const firstLine = `${type}${scope ? `(${scope})` : ''}: ${subject}`;
 
   if (firstLine.length > 70) {
@@ -61,7 +99,8 @@ return inquirer.prompt([
     process.exit(1);
   }
 
-  writeFileSync('#temp_commit', firstLine);
+  const fileContent = [firstLine, '\n\n', issueID, whyParsed, howParsed, appsParsed].join('');
+  writeFileSync('#temp_commit', fileContent);
 
   process.nextTick(() => {
     execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
@@ -76,8 +115,8 @@ return inquirer.prompt([
 
     spawnSync(
       'git',
-      ['commit'].concat(process.argv.slice(2)),
-      { stdio: 'inherit', input: commitMsg }
+      ['commit'].concat(process.argv.slice(2)).concat('-m'+ commitMsg),
+      { stdio: 'inherit' }
     );
   });
 });
