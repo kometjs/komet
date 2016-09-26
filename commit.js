@@ -1,10 +1,11 @@
+/* eslint no-console: 'off' */
 const { readFileSync, writeFileSync, unlinkSync } = require('fs');
 const { execSync, spawnSync } = require('child_process');
 const inquirer = require('inquirer');
 const Liftoff = require('liftoff');
 const argv = require('minimist-argv');
 
-['p', 'C', 'c', 'm', 't'].forEach(argKey => {
+['p', 'C', 'c', 'm', 't'].forEach((argKey) => {
   if (argv[argKey]) {
     console.log(`Argument -${argKey} not supported`);
     process.exit(1);
@@ -20,7 +21,7 @@ const argv = require('minimist-argv');
   'message',
   'template',
   'amend',
-].forEach(argKey => {
+].forEach((argKey) => {
   if (argv[argKey]) {
     console.log(`Argument --${argKey} not supported`);
     process.exit(1);
@@ -41,10 +42,10 @@ const Commit = new Liftoff({
 
 Commit.launch({
   cwd: argv.cwd,
-  configPath: argv.commitrc
+  configPath: argv.commitrc,
 }, run);
 
-function run (env) {
+function run(env) {
   let configPath = env.configFiles['.commitrc.js'].cwd;
 
   if (!configPath) {
@@ -52,10 +53,10 @@ function run (env) {
 
     if (env.configFiles['.commitrc.js'].home === null) {
       console.log('No global config found.');
-      
+
       execSync('cp .commitrc.tpl ~/.commitrc.js');
-      execSync('cp ~/.commitrc.js .commitrc.js', { stdio: 'inherit'});
-      
+      execSync('cp ~/.commitrc.js .commitrc.js', { stdio: 'inherit' });
+
       console.log('Create global and local config...');
       console.log('Your configurations are ready. run `commit` to commit');
       return;
@@ -67,9 +68,23 @@ function run (env) {
     console.log('Use local config.');
   }
 
+  // eslint-disable-next-line global-require
   const configFile = require(configPath);
-  return inquirer.prompt(configFile.questions)
-    .then(configFile.processAnswers)
+
+  let questions = configFile.questions;
+  let processAnswers = configFile.processAnswers;
+  if (configFile.preset) {
+    // eslint-disable-next-line global-require
+    const preset = require(`./presets/${configFile.preset}`);
+    questions = preset.questions.concat(questions);
+    processAnswers = (answers) => {
+      const presetContent = preset.processAnswers(answers);
+      return configFile.processAnswers(answers, presetContent);
+    };
+  }
+
+  return inquirer.prompt(questions)
+    .then(processAnswers)
     .then((fileContent) => {
       writeFileSync('#temp_commit', fileContent);
 
@@ -86,9 +101,9 @@ function run (env) {
 
         spawnSync(
           'git',
-          ['commit'].concat(process.argv.slice(2)).concat('-m'+ commitMsg),
+          ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
           { stdio: 'inherit' }
         );
       });
-  });
+    });
 }
