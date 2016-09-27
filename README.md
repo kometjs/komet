@@ -17,7 +17,7 @@ You have a file `.commitrc.js` at the root of your project and at the root of yo
 This file contains 2fields:
 ```
 questions: [],
-processAnswers: function (answers) {},
+processAnswers: function (answers, commitMsg) {},
 ```
 
 `questions` are the questions which are going to be asked to create your commit message (it uses [Inquirer](https://www.npmjs.com/package/inquirer#question))
