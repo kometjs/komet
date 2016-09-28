@@ -26,13 +26,32 @@ processAnswers: function (answers, commitMsg) {},
 
 ### How to use
 
-#### Direct use
+#### Direct use (requires global install)
 
 ```
 commit
 ```
 
-All args are passed to git commit
+All args are passed to git commit.
+
+#### With [git hook](https://git-scm.com/docs/githooks#_prepare_commit_msg)
+
+create `.git/hooks/prepare-commit-msg`
+
+```
+#!/bin/sh
+
+# Allow to read user input, assigns stdin to keyboard
+exec < /dev/tty
+
+case "$2,$3" in
+  ,)
+    node_modules/.bin/prepare-commit-msg -- $1
+    ;;
+  *) ;;
+esac
+
+```
 
 #### With npm scripts `npm run commit`
 

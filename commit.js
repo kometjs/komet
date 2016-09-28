@@ -1,9 +1,8 @@
 /* eslint no-console: 'off' */
-const { readFileSync, writeFileSync, unlinkSync } = require('fs');
-const { execSync, spawnSync } = require('child_process');
-const inquirer = require('inquirer');
-const Liftoff = require('liftoff');
 const argv = require('minimist-argv');
+const { readFileSync, unlinkSync } = require('fs');
+const { execSync, spawnSync } = require('child_process');
+
 
 ['p', 'C', 'c', 'm', 't'].forEach((argKey) => {
   if (argv[argKey]) {
@@ -28,82 +27,24 @@ const argv = require('minimist-argv');
   }
 });
 
-const Commit = new Liftoff({
-  name: 'commit',
-  configName: '.commitrc.js',
-  extensions: {},
-  configFiles: {
-    '.commitrc.js': {
-      cwd: '.',
-      home: { path: '~' },
-    },
-  },
-});
 
-Commit.launch({
-  cwd: argv.cwd,
-  configPath: argv.commitrc,
-}, run);
+argv._[0] = '#temp_commit';
+require('./prepare-commit-msg.js')().then(() => {
+  process.nextTick(() => {
+    execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
 
-function run(env) {
-  let configPath = env.configFiles['.commitrc.js'].cwd;
+    const commitMsg = readFileSync('#temp_commit');
+    unlinkSync('#temp_commit');
 
-  if (!configPath) {
-    console.log('No local config found.');
-
-    if (env.configFiles['.commitrc.js'].home === null) {
-      console.log('No global config found.');
-
-      execSync('cp .commitrc.tpl ~/.commitrc.js');
-      execSync('cp ~/.commitrc.js .commitrc.js', { stdio: 'inherit' });
-
-      console.log('Create global and local config...');
-      console.log('Your configurations are ready. run `commit` to commit');
-      return;
+    if (!commitMsg) {
+      console.log('Aborting, empty commit message.');
+      process.exit(1);
     }
 
-    console.log('Using global config.');
-    configPath = env.configFiles['.commitrc.js'].home;
-  } else {
-    console.log('Use local config.');
-  }
-
-  // eslint-disable-next-line global-require
-  const configFile = require(configPath);
-
-  let questions = configFile.questions;
-  let processAnswers = configFile.processAnswers;
-  if (configFile.preset) {
-    // eslint-disable-next-line global-require
-    const preset = require(`./presets/${configFile.preset}`);
-    questions = preset.questions.concat(questions);
-    processAnswers = (answers) => {
-      const presetContent = preset.processAnswers(answers);
-      return configFile.processAnswers(answers, presetContent);
-    };
-  }
-
-  return inquirer.prompt(questions)
-    .then(processAnswers)
-    .then((fileContent) => {
-      writeFileSync('#temp_commit', fileContent);
-
-      process.nextTick(() => {
-        execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
-
-        const commitMsg = readFileSync('#temp_commit');
-        unlinkSync('#temp_commit');
-
-        if (!commitMsg) {
-          console.log('Aborting, empty commit message.');
-          process.exit(1);
-        }
-
-        spawnSync(
-          'git',
-          ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
-          { stdio: 'inherit' }
-        );
-      });
-    });
-}
+    spawnSync(
+      'git',
+      ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
+      { stdio: 'inherit' }
+    );
+  });
+});

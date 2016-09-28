@@ -8,7 +8,8 @@
   "repository": "git@github.com:christophehurpeau/pob-commit.git",
   "homepage": "https://github.com/christophehurpeau/pob-commit",
   "bin": {
-    "commit": "./commit"
+    "commit": "./commit",
+    "prepare-commit-msg": "./prepare-commit-msg"
   },
   "scripts": {
     "commit": "./commit",
