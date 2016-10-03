@@ -1,1 +1,1 @@
-exports.extends = 'pob/base';
+exports.extends = 'pob/babel';

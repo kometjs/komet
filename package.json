@@ -7,18 +7,22 @@
   "license": "ISC",
   "repository": "git@github.com:christophehurpeau/pob-commit.git",
   "homepage": "https://github.com/christophehurpeau/pob-commit",
+  "main": "./index.js",
   "bin": {
     "commit": "./commit",
     "prepare-commit-msg": "./prepare-commit-msg"
   },
   "scripts": {
+    "build": "pob-build",
+    "clean": "rm -Rf docs dist test/node6 coverage",
     "commit": "./commit",
     "lint": "eslint --ext .js,.jsx --fix src/",
     "prepublish": "ln -s ../../git-hooks/pre-commit .git/hooks/pre-commit 2>/dev/null || true ; ln -s ../../git-hooks/post-checkout .git/hooks/post-checkout 2>/dev/null || true ; ln -s ../../git-hooks/post-merge .git/hooks/post-merge 2>/dev/null || true",
-    "preversion": "npm run lint && pob-repository-check-clean",
+    "preversion": "npm run lint && npm run build && pob-repository-check-clean",
     "release": "pob-repository-check-clean && pob-release",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "pob-version"
+    "version": "pob-version",
+    "watch": "pob-watch"
   },
   "dependencies": {
     "inquirer": "^1.1.2",
@@ -26,9 +30,15 @@
     "minimist-argv": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.5.0",
-    "eslint-config-airbnb-base": "^7.1.0",
-    "eslint-config-pob": "^7.0.1",
-    "pob-release": "^2.1.2"
+    "babel-eslint": "^7.0.0",
+    "babel-preset-es2015-node6": "^0.3.0",
+    "eslint": "^3.6.1",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-config-pob": "^7.6.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^2.0.0",
+    "pob-babel": "^8.3.2",
+    "pob-release": "^2.1.2",
+    "tcomb-forked": "^3.4.0"
   }
 }

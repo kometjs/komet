@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('./prepare-commit-msg.js')();
+require('./index.js').prepareCommitMessage();
