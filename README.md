@@ -15,7 +15,7 @@ npm install --save-dev pob-commit
 You have a file `.commitrc.js` at the root of your project and at the root of your computer `~/.commitrc.js` for the global configurations (if you don't want to have a config file in each project).
 
 This file contains 2fields:
-```
+```javascript
 questions: [],
 processAnswers: function (answers, commitMsg) {},
 ```
