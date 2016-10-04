@@ -36,24 +36,26 @@ export default function () {
   });
 
   argv._[0] = '#temp_commit';
-  prepareCommitMessage().then(() => {
-    execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
+  prepareCommitMessage()
+    .then(() => {
+      execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
 
-    const commitMsg = readFileSync('#temp_commit');
-    unlinkSync('#temp_commit');
+      const commitMsg = readFileSync('#temp_commit');
+      if (!commitMsg) {
+        throw new Error('The commit message is empty');
+      }
 
-    if (!commitMsg) {
-      console.log('Aborting, empty commit message.');
+      spawnSync(
+        'git',
+        ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
+        { stdio: 'inherit' },
+      );
+    })
+    .then(() => {
+      unlinkSync('#temp_commit');
+    })
+    .catch((msg) => {
+      console.log(msg);
       process.exit(1);
-    }
-
-    spawnSync(
-      'git',
-      ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
-      { stdio: 'inherit' },
-    );
-  }).catch(() => {
-    console.log('An error occured');
-    process.exit(1);
-  });
+    });
 }

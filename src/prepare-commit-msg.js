@@ -1,9 +1,10 @@
 /* eslint no-console: 'off' */
-const { writeFileSync, existsSync } = require('fs');
-const { execSync } = require('child_process');
-const inquirer = require('inquirer');
-const Liftoff = require('liftoff');
-const argv = require('minimist-argv');
+import { writeFileSync, existsSync } from 'fs';
+import { execSync } from 'child_process';
+import inquirer from 'inquirer';
+import Liftoff from 'liftoff';
+import argv from 'minimist-argv';
+import ConfigGenerator from './ConfigGenerator';
 
 const Commit = new Liftoff({
   name: 'commit',
@@ -19,7 +20,6 @@ const Commit = new Liftoff({
   },
 });
 
-
 export default function () {
   return new Promise((resolve, reject) => {
     Commit.launch({ cwd: argv.cwd, configPath: argv.commitrc }, (env) => {
@@ -27,41 +27,21 @@ export default function () {
       const msgCommitPath = argv._[0];
       
       if (!envPath) {
-        console.log('This folder is not a git repository');
-        return reject();
+        return reject('This folder is not a git repository');
       }
 
       envPath = envPath.replace('/.git', '');
       const configPath = `${envPath}/.commitrc.js`;
 
       if (!existsSync(configPath)) {
-        console.log('No config file found');
-        return inquirer.prompt([{
-          type: 'confirm',
-          name: 'create',
-          message: 'Would you like to create the config file ?',
-          default: true,
-        },
-        {
-          type: 'list',
-          name: 'preset',
-          message: 'Which preset do you want to use ?',
-          choices: [
-            { name: 'karma: <type>(<scope>): <subject>', value: 'karma', short: 'karma' },
-          ],
-          default: 'karma',
-        }]).then(({ create, preset }) => {
-          if (create) {
-            execSync(`cp ../.commitrc.tpl ${configPath}`);
-          }
-        });
+        return new ConfigGenerator(configPath);
       }
 
       // eslint-disable-next-line global-require
       const configFile = require(configPath);
-
       let questions = configFile.questions;
       let processAnswers = configFile.processAnswers;
+
       if (configFile.preset) {
         // eslint-disable-next-line global-require
         const preset = require(`../presets/${configFile.preset}`);
