@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs';
 import inquirer from 'inquirer';
+import notification from './notifications';
 
 class ConfigGenerator {
   constructor(configPath) {
@@ -8,10 +9,10 @@ class ConfigGenerator {
       .then(this.handleAnswers(configPath))
       .then(this.generate)
       .then(() => {
-        console.log('Config file generated');
+        notification.success('Whoo! Config file generated');
       })
       .catch(() => { 
-        console.log('Could not generate config file'); 
+        notification.failure('Oops! Could not generate config file'); 
       });
   }
 

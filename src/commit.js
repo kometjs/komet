@@ -9,6 +9,7 @@ import {
   spawnSync,
 } from 'child_process';
 import prepareCommitMessage from './prepare-commit-msg';
+import notification from './notifications';
 
 
 export default function () {
@@ -55,7 +56,7 @@ export default function () {
       unlinkSync('#temp_commit');
     })
     .catch((msg) => {
-      console.log(msg);
+      notification.failure(msg);
       process.exit(1);
     });
 }
