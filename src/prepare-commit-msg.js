@@ -25,14 +25,14 @@ export default function () {
     Commit.launch({ cwd: argv.cwd, configPath: argv.commitrc }, (env) => {
       let envPath = env.configFiles['.git'].up;
       const msgCommitPath = argv._[0];
-
+      
       if (!envPath) {
         console.log('This folder is not a git repository');
         return reject();
       }
 
       envPath = envPath.replace('/.git', '');
-      const configPath = envPath + "/.commitrc.js";
+      const configPath = `${envPath}/.commitrc.js`;
 
       if (!existsSync(configPath)) {
         console.log('No config file found');
@@ -47,10 +47,10 @@ export default function () {
           name: 'preset',
           message: 'Which preset do you want to use ?',
           choices: [
-            {name: 'karma: <type>(<scope>): <subject>', value: 'karma', short: 'karma'},
+            { name: 'karma: <type>(<scope>): <subject>', value: 'karma', short: 'karma' },
           ],
           default: 'karma',
-        }]).then(({create, preset}) => {
+        }]).then(({ create, preset }) => {
           if (create) {
             execSync(`cp ../.commitrc.tpl ${configPath}`);
           }
@@ -81,4 +81,4 @@ export default function () {
         .catch(reject);
     });
   });
-};
+}

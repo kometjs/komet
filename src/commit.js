@@ -2,11 +2,11 @@
 import argv from 'minimist-argv';
 import {
   readFileSync,
-  unlinkSync
+  unlinkSync,
 } from 'fs';
 import {
   execSync,
-  spawnSync
+  spawnSync,
 } from 'child_process';
 import prepareCommitMessage from './prepare-commit-msg';
 
@@ -50,7 +50,10 @@ export default function () {
     spawnSync(
       'git',
       ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
-      { stdio: 'inherit' }
+      { stdio: 'inherit' },
     );
+  }).catch(() => {
+    console.log('An error occured');
+    process.exit(1);
   });
 }
