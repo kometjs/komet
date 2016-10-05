@@ -7,12 +7,6 @@
 /test
 circle.yml
 .codeclimate.yml
-/.pob.json
-
-/plugins
-/lib-node6-dev
-/src
-*.map
 
 /.settings
 /.project

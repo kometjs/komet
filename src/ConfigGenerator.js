@@ -1,8 +1,9 @@
 import { writeFileSync } from 'fs';
+import { spawnSync } from 'child_process';
 import inquirer from 'inquirer';
 import notification from './notifications';
 
-class ConfigGenerator {
+export default class ConfigGenerator {
   constructor(configPath) {
     return inquirer
       .prompt(this.getQuestions())
@@ -11,8 +12,8 @@ class ConfigGenerator {
       .then(() => {
         notification.success('Whoo! Config file generated');
       })
-      .catch(() => { 
-        notification.failure('Oops! Could not generate config file'); 
+      .catch(() => {
+        notification.failure('Oops! Could not generate config file');
       });
   }
 
@@ -33,7 +34,7 @@ class ConfigGenerator {
         choices: [
           { name: 'karma: <type>(<scope>): <subject>', short: 'karma', value: 'karma' },
         ],
-      }
+      },
     ];
   }
 
@@ -46,20 +47,22 @@ class ConfigGenerator {
       if (createConfig) {
         return { preset, configPath };
       }
-    }
+    };
   }
 
   generate({ configPath, preset }) {
     const template = `
-module.exports = {
-  preset: '${preset}',
-  questions: [],
-  processAnswers: (answers, firstLine) => firstLine,
-};
-    `;
+module.exports = [
+  '${preset}',
+  // Uncomment next lines to add questions
+  // message => ({
+  //   questions: [],
+  //   processAnswers: (answers, message) => message,
+  // }),
+];
+`.trim();
 
     writeFileSync(configPath, template);
+    spawnSync('npm', ['install', '--save-dev', `pob-commit-${preset}`], { stdio: 'inherit' });
   }
 }
-
-export default ConfigGenerator;

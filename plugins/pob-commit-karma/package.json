@@ -1,0 +1,20 @@
+{
+  "name": "pob-commit-karma",
+  "version": "0.0.0",
+  "description": "karma preset for pob-commit",
+  "keywords": [],
+  "author": "Christophe Hurpeau <christophe@hurpeau.com> (https://christophe.hurpeau.com)",
+  "license": "ISC",
+  "repository": "git@github.com:christophehurpeau/pob-commit.git",
+  "homepage": "https://github.com/christophehurpeau/pob-commit",
+  "scripts": {
+    "release": "pob-repository-check-clean && pob-release",
+    "version": "pob-version"
+  },
+  "devDependencies": {
+    "pob-release": "^2.1.2"
+  },
+  "dependencies": {
+    "minimist-argv": "^1.0.0"
+  }
+}

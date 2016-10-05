@@ -1,16 +1,9 @@
 /* eslint no-console: 'off' */
 import argv from 'minimist-argv';
-import {
-  readFileSync,
-  unlinkSync,
-} from 'fs';
-import {
-  execSync,
-  spawnSync,
-} from 'child_process';
+import { readFileSync, unlinkSync } from 'fs';
+import { execSync, spawnSync } from 'child_process';
 import prepareCommitMessage from './prepare-commit-msg';
 import notification from './notifications';
-
 
 export default function () {
   ['p', 'C', 'c', 'm', 't'].forEach((argKey) => {
@@ -36,12 +29,12 @@ export default function () {
     }
   });
 
-  argv._[0] = '#temp_commit';
+  argv.path = '#temp_commit';
   prepareCommitMessage()
     .then(() => {
       execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
 
-      const commitMsg = readFileSync('#temp_commit');
+      const commitMsg = readFileSync(argv.path);
       if (!commitMsg) {
         throw new Error('The commit message is empty');
       }
@@ -53,7 +46,7 @@ export default function () {
       );
     })
     .then(() => {
-      unlinkSync('#temp_commit');
+      unlinkSync(argv.path);
     })
     .catch((msg) => {
       notification.failure(msg);
