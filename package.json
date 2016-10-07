@@ -1,11 +1,10 @@
 {
   "name": "komet",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Write intelligible commit messages, by answering questions",
   "keywords": [],
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
-  "contributors": [
-  ],
+  "contributors": [],
   "license": "ISC",
   "repository": "git@github.com:kometjs/komet.git",
   "homepage": "https://github.com/kometjs/komet",
