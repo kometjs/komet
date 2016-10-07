@@ -8,3 +8,8 @@ process.on('unhandledRejection', (err) => {
   notification.failure(err.message || err);
   process.exit(1);
 });
+
+process.on('uncaughtException', (err) => {
+  notification.failure(err.message || err);
+  process.exit(1);
+});
