@@ -39,7 +39,7 @@
     "eslint-config-airbnb-base": "^8.0.0",
     "eslint-config-pob": "^7.6.0",
     "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-import": "^1.16.0",
     "pob-babel": "^8.3.2",
     "komet-karma": "^0.1.1",
     "pob-release": "^2.1.2",
