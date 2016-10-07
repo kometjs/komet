@@ -63,6 +63,6 @@ module.exports = [
 `.trim();
 
     writeFileSync(configPath, template);
-    spawnSync('npm', ['install', '--save-dev', `pob-commit-${preset}`], { stdio: 'inherit' });
+    spawnSync('npm', ['install', '--save-dev', `komet-${preset}`], { stdio: 'inherit' });
   }
 }

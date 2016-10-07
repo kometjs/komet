@@ -55,7 +55,7 @@ export default function () {
       Promise.resolve(message).then(message => {
         const plugins = configFile.map((plugin) => {
           if (typeof plugin === 'string') {
-            let pluginLoc = resolvePath(`pob-commit-${plugin}`, envPath) || resolvePath(plugin, envPath);
+            let pluginLoc = resolvePath(`komet-${plugin}`, envPath) || resolvePath(plugin, envPath);
             if (!pluginLoc) throw new Error(`Could not find plugin "${plugin}"`);
             // eslint-disable-next-line global-require, import/no-dynamic-require
             plugin = require(pluginLoc);

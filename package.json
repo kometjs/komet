@@ -1,14 +1,14 @@
 {
-  "name": "pob-commit",
-  "version": "0.1.3",
-  "description": "commit with ease",
+  "name": "komet",
+  "version": "0.0.0",
+  "description": "Write intelligible commit messages, by answering questions",
   "keywords": [],
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
   "contributors": [
   ],
   "license": "ISC",
-  "repository": "git@github.com:christophehurpeau/pob-commit.git",
-  "homepage": "https://github.com/christophehurpeau/pob-commit",
+  "repository": "git@github.com:kometjs/komet.git",
+  "homepage": "https://github.com/kometjs/komet",
   "main": "./index.js",
   "bin": {
     "commit": "./commit",
@@ -41,7 +41,7 @@
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.0.0",
     "pob-babel": "^8.3.2",
-    "pob-commit-karma": "./plugins/pob-commit-karma",
+    "komet-karma": "^0.1.0",
     "pob-release": "^2.1.2",
     "tcomb-forked": "^3.4.0"
   }

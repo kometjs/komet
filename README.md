@@ -1,38 +1,30 @@
-# pob-commit
+# komet [![NPM version][npm-image]][npm-url]
 
-Commit with ease
+Write intelligible commit messages, by answering questions
+
+[![Circle ci Status][build-status-image]][build-status-url]
+[![Travis ci Status][travisci-status-image]][travisci-status-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
 
 Force to follow [karma commit message convention](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
 
 ### Install
 
 ```sh
-npm install --g pob-commit
-npm install --save-dev pob-commit
+npm install --save-dev komet komet-karma
 ```
 
 ### Configuration
-You have a file `.commitrc.js` at the root of your project and at the root of your computer `~/.commitrc.js` for the global configurations (if you don't want to have a config file in each project).
+You have a file `.commitrc.js` at the root of your project.
 
-This file contains 2fields:
+This file contains an array of plugins:
 ```javascript
-questions: [],
-processAnswers: function (answers, commitMsg) {},
+[
+  'karma',
+]
 ```
-
-`questions` are the questions which are going to be asked to create your commit message (it uses [Inquirer](https://www.npmjs.com/package/inquirer#question))
-
-`processAnswers` is a function which build and return the commit message.
 
 ### How to use
-
-#### Direct use (requires global install)
-
-```
-commit
-```
-
-All args are passed to git commit.
 
 #### With [git hook](https://git-scm.com/docs/githooks#_prepare_commit_msg)
 
@@ -53,6 +45,15 @@ esac
 
 ```
 
+#### Direct use (requires global install)
+
+```
+commit
+```
+
+All args are passed to git commit.
+
+
 #### With npm scripts `npm run commit`
 
 Edit your package.json:
@@ -65,3 +66,9 @@ Edit your package.json:
 }
 
 ```
+
+### Plugin
+
+`questions` are the questions which are going to be asked to create your commit message (it uses [Inquirer](https://www.npmjs.com/package/inquirer#question))
+
+`processAnswers` is a function which build and return the commit message.
