@@ -54,11 +54,6 @@ export default class ConfigGenerator {
     const template = `
 module.exports = [
   '${preset}',
-  // Uncomment next lines to add questions
-  // message => ({
-  //   questions: [],
-  //   processAnswers: (answers, message) => message,
-  // }),
 ];
 `.trim();
 
