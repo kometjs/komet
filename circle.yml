@@ -1,0 +1,21 @@
+machine:
+  node:
+    version: 6.6.0
+
+general:
+  branches:
+    ignore:
+      - gh-pages
+
+dependencies:
+  cache_directories:
+    - node_modules
+  override:
+    - npm prune && npm install --no-progress
+
+test:
+  pre:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+  override:
+    - npm run preversion
+    - npm run test
