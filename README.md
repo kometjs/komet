@@ -18,7 +18,7 @@ You have a file `.commitrc.js` at the root of your project.
 
 This file contains an array of plugins:
 ```javascript
-[
+module.exports = [
   'karma',
 ]
 ```
