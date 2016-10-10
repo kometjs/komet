@@ -1,6 +1,6 @@
 {
   "name": "komet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write intelligible commit messages, by answering questions",
   "keywords": [],
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",

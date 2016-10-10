@@ -1,3 +1,8 @@
+### v0.1.1
+
+- [`bbe1d7e`](https://github.com/kometjs/komet/commit/bbe1d7edeaa4d10e98be95b963da759a58d42e92) docs: readme (Christophe Hurpeau)
+- [`4190458`](https://github.com/kometjs/komet/commit/41904589f76b3c12936edae85e776f9159430933) docs: fix commitrc.js in readme (Christophe Hurpeau)
+
 ### v0.1.0
 
 - [`2c4d05c`](https://github.com/kometjs/komet/commit/2c4d05cb139fe4349e4e2faf219bd9667b994eac) first commit (Christophe Hurpeau)
