@@ -3,7 +3,6 @@
 Write intelligible commit messages, by answering questions
 
 [![Circle ci Status][build-status-image]][build-status-url]
-[![Travis ci Status][travisci-status-image]][travisci-status-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
 Force to follow [karma commit message convention](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
@@ -72,3 +71,11 @@ Edit your package.json:
 `questions` are the questions which are going to be asked to create your commit message (it uses [Inquirer](https://www.npmjs.com/package/inquirer#question))
 
 `processAnswers` is a function which build and return the commit message.
+
+
+[npm-image]: https://img.shields.io/npm/v/komet.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/komet
+[daviddm-image]: https://david-dm.org/kometjs/komet.svg?style=flat-square
+[daviddm-url]: https://david-dm.org/kometjs/komet
+[build-status-image]: https://img.shields.io/circleci/project/kometjs/komet/master.svg?style=flat-square
+[build-status-url]: https://circleci.com/gh/kometjs/komet

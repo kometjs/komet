@@ -1,3 +1,1 @@
-module.exports = [
-  'karma',
-];
+module.exports = ['karma'];
