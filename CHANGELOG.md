@@ -1,3 +1,7 @@
+### v0.1.2
+
+- [`402fd97`](https://github.com/kometjs/komet/commit/402fd97251660727df7636c6fac2e40c7bde8232) docs: prepare-commit-msg (Christophe Hurpeau)
+
 ### v0.1.1
 
 - [`bbe1d7e`](https://github.com/kometjs/komet/commit/bbe1d7edeaa4d10e98be95b963da759a58d42e92) docs: readme (Christophe Hurpeau)
