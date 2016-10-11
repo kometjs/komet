@@ -35,8 +35,8 @@ create `.git/hooks/prepare-commit-msg`
 # Allow to read user input, assigns stdin to keyboard
 exec < /dev/tty
 
-case "$2,$3" in
-  ,)
+case "$2," in
+  message,|template,|,)
     node_modules/.bin/prepare-commit-msg -- $1
     ;;
   *) ;;
