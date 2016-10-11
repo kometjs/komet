@@ -1,3 +1,7 @@
+### v0.1.3
+
+- [`d970f78`](https://github.com/kometjs/komet/commit/d970f783e07942b9a7b45fb9faf3bf10e1d6b946) docs: prepare-commit-msg fix path (Christophe Hurpeau)
+
 ### v0.1.2
 
 - [`402fd97`](https://github.com/kometjs/komet/commit/402fd97251660727df7636c6fac2e40c7bde8232) docs: prepare-commit-msg (Christophe Hurpeau)
