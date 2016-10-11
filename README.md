@@ -37,7 +37,7 @@ exec < /dev/tty
 
 case "$2," in
   message,|template,|,)
-    node_modules/.bin/prepare-commit-msg -- $1
+    node_modules/.bin/prepare-commit-msg --path "$1"
     ;;
   *) ;;
 esac
