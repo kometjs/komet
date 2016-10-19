@@ -41,7 +41,7 @@ export default function () {
 
       spawnSync(
         'git',
-        ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
+        ['commit', '--cleanup=strip', `-m${commitMsg}`].concat(process.argv.slice(2)),
         { stdio: 'inherit' },
       );
     })
