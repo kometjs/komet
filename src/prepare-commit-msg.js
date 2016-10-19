@@ -1,5 +1,6 @@
 /* eslint no-console: 'off' */
 import { readFileSync, writeFileSync, existsSync } from 'fs';
+import path from 'path';
 import inquirer from 'inquirer';
 import findUp from 'find-up';
 import argv from 'minimist-argv';
@@ -14,7 +15,7 @@ export default function () {
         throw new Error('Unable to find the root directory of your project');
       }
 
-      return rootDir.replace('.git', '');
+      return path.dirname(rootDir);
     })
     .then((envPath) => {
       const msgCommitPath = argv.path;
