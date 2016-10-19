@@ -10,7 +10,9 @@
     "git-commit"
   ],
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
-  "contributors": [],
+  "contributors": [
+    "Romain Quilliot <hello@romainquilliot.fr> (http://romainquilliot.fr)"
+  ],
   "license": "ISC",
   "repository": "git@github.com:kometjs/komet.git",
   "homepage": "https://github.com/kometjs/komet",
