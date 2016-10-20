@@ -1,29 +1,23 @@
 /* eslint no-console: 'off' */
 import { readFileSync, writeFileSync, existsSync } from 'fs';
+import path from 'path';
 import inquirer from 'inquirer';
-import Liftoff from 'liftoff';
+import findUp from 'find-up';
 import argv from 'minimist-argv';
 import ConfigGenerator from './ConfigGenerator';
 import resolvePath from './utils/resolve';
 
-const Commit = new Liftoff({
-  name: 'commit',
-  configName: '.git',
-  extensions: {},
-  configFiles: {
-    '.git': {
-      up: {
-        path: '.',
-        findUp: true,
-      },
-    },
-  },
-});
-
 export default function () {
   return new Promise((resolve) => {
-    Commit.launch({ cwd: argv.cwd, configPath: argv.commitrc }, (env) => {
-      let envPath = env.configFiles['.git'].up;
+    findUp('.git')
+    .then((rootDir) => {
+      if (!rootDir) {
+        throw new Error('Unable to find the root directory of your project');
+      }
+
+      return path.dirname(rootDir);
+    })
+    .then((envPath) => {
       const msgCommitPath = argv.path;
 
       if (!envPath) {
