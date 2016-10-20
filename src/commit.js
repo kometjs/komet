@@ -1,6 +1,6 @@
 /* eslint no-console: 'off' */
 import argv from 'minimist-argv';
-import { readFileSync, unlinkSync } from 'fs';
+import { unlinkSync } from 'fs';
 import { execSync, spawnSync } from 'child_process';
 import prepareCommitMessage from './prepare-commit-msg';
 import notification from './notifications';
@@ -34,14 +34,9 @@ export default function () {
     .then(() => {
       execSync('$EDITOR \\#temp_commit', { stdio: 'inherit' });
 
-      const commitMsg = readFileSync(argv.path);
-      if (!commitMsg) {
-        throw new Error('The commit message is empty');
-      }
-
       spawnSync(
         'git',
-        ['commit'].concat(process.argv.slice(2)).concat(`-m${commitMsg}`),
+        ['commit', `-F${argv.path}`].concat(process.argv.slice(2)),
         { stdio: 'inherit' },
       );
     })
