@@ -5,8 +5,6 @@ Write intelligible commit messages, by answering questions
 [![Circle ci Status][build-status-image]][build-status-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
-Force to follow [karma commit message convention](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
-
 ### Install
 
 ```sh
