@@ -5,6 +5,8 @@ Write intelligible commit messages, by answering questions
 [![Circle ci Status][build-status-image]][build-status-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
+![](http://gifyu.com/images/demokomet.gif)
+
 ### Install
 
 ```sh
