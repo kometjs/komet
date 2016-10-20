@@ -47,7 +47,7 @@
     "eslint-config-pob": "^7.6.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.16.0",
-    "komet-karma": "^0.1.2",
+    "komet-karma": "^0.2.3",
     "pob-babel": "^8.3.2",
     "pob-release": "^2.1.2",
     "tcomb-forked": "^3.4.0"
