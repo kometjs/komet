@@ -72,6 +72,7 @@ Edit your package.json:
 
 `processAnswers` is a function which build and return the commit message.
 
+You can check how works `karma` plugin [here](https://github.com/kometjs/komet-karma)
 
 [npm-image]: https://img.shields.io/npm/v/komet.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/komet
