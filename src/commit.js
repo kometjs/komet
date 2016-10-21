@@ -8,7 +8,7 @@ import notification from './notifications';
 export default function () {
   ['p', 'C', 'c', 'm', 't'].forEach((argKey) => {
     if (argv[argKey]) {
-      console.log(`Argument -${argKey} not supported`);
+      notification.failure(`Argument -${argKey} not supported`);
       process.exit(1);
     }
   });
@@ -24,7 +24,7 @@ export default function () {
     'amend',
   ].forEach((argKey) => {
     if (argv[argKey]) {
-      console.log(`Argument --${argKey} not supported`);
+      notification.failure(`Argument --${argKey} not supported`);
       process.exit(1);
     }
   });
