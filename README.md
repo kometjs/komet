@@ -5,7 +5,7 @@ Write intelligible commit messages, by answering questions
 [![Circle ci Status][build-status-image]][build-status-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
-![](http://gifyu.com/images/demokomet.gif)
+![](http://gifyu.com/images/kometdemo_2.gif)
 
 ### Install
 
