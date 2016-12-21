@@ -5,6 +5,8 @@ Write intelligible commit messages, by answering questions
 [![Circle ci Status][build-status-image]][build-status-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
+![](http://gifyu.com/images/kometdemo_2.gif)
+
 ### Install
 
 ```sh
@@ -70,6 +72,7 @@ Edit your package.json:
 
 `processAnswers` is a function which build and return the commit message.
 
+You can check how works `karma` plugin [here](https://github.com/kometjs/komet-karma)
 
 [npm-image]: https://img.shields.io/npm/v/komet.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/komet
