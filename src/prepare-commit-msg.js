@@ -7,6 +7,17 @@ import argv from 'minimist-argv';
 import ConfigGenerator from './ConfigGenerator';
 import resolvePath from './utils/resolve';
 
+const stdin = process.stdin;
+stdin.on('data', (key) => {
+  // catching ctrl+c
+  if (key.toString() === '\u0003') {
+    process.exit(1);
+  }
+});
+
+
+const prompt = inquirer.createPromptModule({ input: stdin });
+
 export default function () {
   return new Promise((resolve) => {
     findUp('.git')
@@ -66,7 +77,7 @@ export default function () {
           [],
         );
 
-        return inquirer.prompt(questions)
+        return prompt(questions)
           .then((answers) => (
             plugins.reduce(
               (message, plugin) => plugin.processAnswers(answers, message),
