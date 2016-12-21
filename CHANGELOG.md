@@ -1,3 +1,20 @@
+### v0.1.4
+
+- [`57c8f5b`](https://github.com/kometjs/komet/commit/57c8f5b1316f3cfaecedf088a1ef8db63976621a) chore: komet-karma@0.1.2 (Christophe Hurpeau)
+- [`3fcfc46`](https://github.com/kometjs/komet/commit/3fcfc462b5120c2b0b3d22a156196a54fccca761) chore: add keywords for npm (Romain Quilliot)
+- [`f77d7b8`](https://github.com/kometjs/komet/commit/f77d7b85ffa8fbd54c140e56a1e7bab869cb9b2c) Merge pull request #4 from kometjs/npm-keywords (Christophe Hurpeau)
+- [`ea4e3c1`](https://github.com/kometjs/komet/commit/ea4e3c1cf3d869ce6a877d6603ab6dc37a5ec13d) chore: add romain as contributor (Romain Quilliot)
+- [`c592bce`](https://github.com/kometjs/komet/commit/c592bceeec7ee0cb3568bcbfae2b3c336e4bc643) refactor: delete liftoff (Romain Quilliot)
+- [`1bfd27a`](https://github.com/kometjs/komet/commit/1bfd27a95211db6d42ee59ceca6cab7696eff83c) fix(msg): use -f options instead of -m when commiting (Romain Quilliot)
+- [`0248143`](https://github.com/kometjs/komet/commit/02481431a0bee2ca9fc88f28e77a4686e7138828) chore(package): update komet-karma@^0.2.3 (Romain Quilliot)
+- [`04dd0e1`](https://github.com/kometjs/komet/commit/04dd0e121dd41c218ada69eefa75f714bd6c5f0f) docs: delete reference to karma (Romain Quilliot)
+- [`f07d3a7`](https://github.com/kometjs/komet/commit/f07d3a7dbf29cd810d0c715ae6255e1be1c90d44) refactor(error): use notification instead of console log (#9) (Romain Quilliot)
+- [`6b28d66`](https://github.com/kometjs/komet/commit/6b28d6632e68f69eb29d2e6d485f13c40de8219a) chore(package): update eslint dependencies (Christophe Hurpeau)
+- [`c71deaf`](https://github.com/kometjs/komet/commit/c71deaf3c94f15deefb2e02670de5c7647cf3aa5) chore(package): update pob dev dependencies (Christophe Hurpeau)
+- [`436162f`](https://github.com/kometjs/komet/commit/436162ff955e3aed8797533f8732af531ec6f36c) docs: update for 1.0.0 (#8) (Christophe Hurpeau)
+- [`16327a7`](https://github.com/kometjs/komet/commit/16327a7d841717e85d30774bb608486f05351878) chore(package): update dependencies (Christophe Hurpeau)
+- [`8dc4c32`](https://github.com/kometjs/komet/commit/8dc4c320aec2c31f84bc07d8fc370e6a99a583fa) fix: catch ctrl-c and exit properly with status 1 (Christophe Hurpeau)
+
 ### v0.1.3
 
 - [`d970f78`](https://github.com/kometjs/komet/commit/d970f783e07942b9a7b45fb9faf3bf10e1d6b946) docs: prepare-commit-msg fix path (Christophe Hurpeau)
