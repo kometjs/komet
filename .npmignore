@@ -5,9 +5,10 @@
 /coverage
 /build
 /test
+/.pob.json
 circle.yml
 .codeclimate.yml
-/.pob.json
+jsdoc.config.json
 
 /plugins
 /lib-node6-dev

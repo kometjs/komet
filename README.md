@@ -3,9 +3,12 @@
 Write intelligible commit messages, by answering questions
 
 [![Circle ci Status][build-status-image]][build-status-url]
+[![Dependency ci Status][dependencyci-image]][dependencyci-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
-![](http://gifyu.com/images/kometdemo_2.gif)
+### Demo
+
+![demo](http://gifyu.com/images/kometdemo_2.gif)
 
 ### Install
 
@@ -78,5 +81,7 @@ You can check how works `karma` plugin [here](https://github.com/kometjs/komet-k
 [npm-url]: https://npmjs.org/package/komet
 [daviddm-image]: https://david-dm.org/kometjs/komet.svg?style=flat-square
 [daviddm-url]: https://david-dm.org/kometjs/komet
+[dependencyci-image]: https://dependencyci.com/github/kometjs/komet/badge?style=flat-square
+[dependencyci-url]: https://dependencyci.com/github/kometjs/komet
 [build-status-image]: https://img.shields.io/circleci/project/kometjs/komet/master.svg?style=flat-square
 [build-status-url]: https://circleci.com/gh/kometjs/komet
