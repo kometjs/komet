@@ -77,6 +77,14 @@ Edit your package.json:
 
 You can check how works `karma` plugin [here](https://github.com/kometjs/komet-karma)
 
+
+## Related
+
+- [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) - Generate a changelog from git metadata
+- [commitizen](https://github.com/commitizen/cz-cli) - Simple commit conventions for internet citizens.
+- [angular-precommit](https://github.com/ajoslin/angular-precommit) - Pre commit with angular conventions
+
+
 [npm-image]: https://img.shields.io/npm/v/komet.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/komet
 [daviddm-image]: https://david-dm.org/kometjs/komet.svg?style=flat-square
