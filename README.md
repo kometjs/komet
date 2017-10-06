@@ -6,6 +6,10 @@ Write intelligible commit messages, by answering questions
 [![Dependency ci Status][dependencyci-image]][dependencyci-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 
+# Deprecated
+
+Use [@commitlint/prompt-cli](https://github.com/marionebl/commitlint/tree/master/@commitlint/prompt-cli) instead.
+
 ### Demo
 
 ![demo](http://gifyu.com/images/kometdemo_2.gif)
